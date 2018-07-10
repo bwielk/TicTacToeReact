@@ -5,10 +5,23 @@ import './index.css';
 //import registerServiceWorker from './registerServiceWorker';
 
 class Square extends React.Component {
+  
+  constructor(props) {
+  	super(props);
+  	this.state = {
+  		value: 1
+  	};
+  }
   render() {
     return (
-      <button className="square">
-        {/* TODO */}
+      <button className="square" onClick={()=> {
+      		let value = this.state.value;
+      		value += 1;
+     		this.setState({value: value});
+     		console.log("You have clicked the tile " + this.props.value + " " + this.state.value + " times");
+      	}
+  	}>
+  		{this.props.value}
       </button>
     );
   }
@@ -16,19 +29,19 @@ class Square extends React.Component {
 
 class Board extends React.Component {
   renderSquare(i) {
-    return <Square />;
+    return <Square value={i}/>;
   }
 
   render() {
     const status = 'Next player: X';
-
     return (
       <div>
-        <div className="status">{status}</div>
+        <div className="status">
+        </div>
         <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
+          {this.renderSquare("A")}
+          {this.renderSquare("B")}
+          {this.renderSquare("C")}
         </div>
         <div className="board-row">
           {this.renderSquare(3)}
@@ -53,8 +66,6 @@ class Game extends React.Component {
           <Board />
         </div>
         <div className="game-info">
-          <div>{/* status */}</div>
-          <ol>{/* TODO */}</ol>
         </div>
       </div>
     );
@@ -65,4 +76,3 @@ ReactDOM.render(
   <Game />,
   document.getElementById('app')
 );
-
