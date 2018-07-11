@@ -4,39 +4,32 @@ import App from './components/App';
 import './index.css';
 //import registerServiceWorker from './registerServiceWorker';
 
-class Square extends React.Component {
-  
-  constructor(props) {
-  	super(props);
-  	this.state = {
-  		value: null,
-  	};
-  }
 
-  render() {
+function Square(props) {
     return (
-      <button className="square" onClick={()=> {
-      		this.props.onClick()}
+    <button className="square" onClick={()=> {
+      	props.onClick()}
   	}>
-  		{this.props.value}
-      </button>
-    );
-  }
-}
+ 		{props.value}
+    </button>
+   );
+ }
 
 class Board extends React.Component {
 
   constructor(props){
   	super(props);
   	this.state = {
-  		squares: Array(9).fill(null)
+  		squares: Array(9).fill(null),
+  		isNextX: true
   	}
   }
 
   handleClick(i){
   	let squares = this.state.squares.slice();
-  	squares[i] = "X";
-  	this.setState({squares: squares});
+  	squares[i] = this.state.isNextX ? "X" : "0";
+  	this.setState({squares: squares,
+  				   isNextX: !this.state.isNextX});
   	console.log(this.state.squares[i]);
   }
 
